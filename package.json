@@ -1,0 +1,15 @@
+{
+   "name": "pickome-api",
+   "version": "1.0.0",
+   "description": "pickome basic API",
+   "main": "index.js",
+   "scripts": {
+      "test": "node index.js"
+   },
+   "dependencies": {
+      "mysql": "2.18.1",
+      "aws-sdk": "2.828.0"
+   },
+   "author": "jacob kim",
+   "license": "ISC"
+}

@@ -1,0 +1,6 @@
+{
+   "host": "test-db-1.cyozhytlvtm0.us-east-2.rds.amazonaws.com",
+   "user": "admin",
+   "password": "pickome!",
+   "database": "pickome"
+}
