@@ -21,9 +21,8 @@ exports.handler = (event, context, callback) => {
    console.log(event);
 
    if (event.httpMethod === 'GET') {
-      const { userid } = event.pathParameters;
-      if (userid) {
-         getUser(userid, connection, callback);
+      if (event.pathParameters) {
+         getUser(event, connection, callback);
       } else {
          getAllUser(connection, callback);
       }
@@ -38,7 +37,8 @@ function connectToDB() {
    connection.connect();
 }
 
-const getUser = (userid, connection, callback) => {
+const getUser = (event, connection, callback) => {
+   const { userid } = event.pathParameters;
    const sql = `SELECT * FROM pickome.User
                 WHERE userId = ${userid}`;
    connection.query(sql, function (error, results, fields) {
