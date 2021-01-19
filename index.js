@@ -21,10 +21,11 @@ exports.handler = (event, context, callback) => {
    console.log(event);
 
    if (event.httpMethod === 'GET') {
-      if (event.path === '/users') {
-         getUsers(event, connection, callback);
+      const { userid } = event.pathParameters;
+      if (userid) {
+         getUser(userid, connection, callback);
       } else {
-         getUser(event, connection, callback);
+         getAllUser(connection, callback);
       }
    }
    if (event.httpMethod === 'POST') {
@@ -37,9 +38,7 @@ function connectToDB() {
    connection.connect();
 }
 
-const getUser = (event, connection, callback) => {
-   const { userid } = event.pathParameters;
-
+const getUser = (userid, connection, callback) => {
    const sql = `SELECT * FROM pickome.User
                 WHERE userId = ${userid}`;
    connection.query(sql, function (error, results, fields) {
@@ -62,7 +61,7 @@ const getUser = (event, connection, callback) => {
    });
 };
 
-const getUsers = (event, connection, callback) => {
+const getAllUser = (connection, callback) => {
    const sql = `SELECT * FROM pickome.User`;
    connection.query(sql, function (error, results, fields) {
       console.log('Results: ', results);
