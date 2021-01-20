@@ -38,7 +38,7 @@ async function registerUser(json) {
          console.log(result);
 
          if (err) {
-            return resolve({
+            resolve({
                statusCode: 500,
                err,
             });
