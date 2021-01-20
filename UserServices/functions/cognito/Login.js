@@ -19,13 +19,14 @@ async function login(json) {
 
       user.authenticateUser(authDetails, {
          onSuccess: (data) => {
+            console.log('IN');
             console.log('onSuccess:', data);
             resolve(data);
          },
 
          onFailure: (err) => {
             console.error('onFailure:', err);
-            reject(err);
+            resolve(err);
          },
 
          newPasswordRequired: (data) => {
@@ -36,4 +37,5 @@ async function login(json) {
    });
 }
 
+// login({ email: 'kjkjkjhan424@gmail.com', password: 'Jacob3Kim!2' });
 module.exports = login;
