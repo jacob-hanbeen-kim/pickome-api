@@ -104,7 +104,7 @@ async function login(json) {
       var authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails(authenticationData);
 
       var userData = {
-         Username: 'username',
+         Username: email,
          Pool: userPool,
       };
 
