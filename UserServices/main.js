@@ -1,7 +1,8 @@
-const { postUser, loginUser } = require('./functions/register.js');
-const getUser = require('./functions/getUser.js');
-const getAllUser = require('./functions/getAllUser.js');
-const connect = require('../Connection/connection.js');
+const postUser = require('./functions/postUser');
+const loginUser = require('./functions/postAuth');
+const getUser = require('./functions/getUser');
+const getAllUser = require('./functions/getAllUser');
+const connect = require('../Connection/connection');
 
 // event['requestContext']['authorizer']['claims']['cognito:roles']
 exports.handler = (event, context, callback) => {
@@ -20,8 +21,11 @@ exports.handler = (event, context, callback) => {
       }
    }
    if (event.httpMethod === 'POST') {
-      // postUser(event, connection, callback);
-      loginUser(event, connection, callback);
+      if (event.path == '/user') {
+         postUser(event, connection, callback);
+      } else if (event.path == '/auth') {
+         loginUser(event, connection, callback);
+      }
       connection.end();
    }
 };
