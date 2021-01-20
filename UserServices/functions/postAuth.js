@@ -1,10 +1,10 @@
 const login = require('./cognito/Login');
 
-const loginUser = async (event, connection, callback) => {
+const postAuth = async (event, connection, callback) => {
    let requestBody = event.body;
    console.log('Login in following user', requestBody);
    try {
-      let result = await loginUser(requestBody);
+      let result = await login(requestBody);
       console.log(result);
 
       callback(null, result);
@@ -17,4 +17,4 @@ const loginUser = async (event, connection, callback) => {
    }
 };
 
-module.exports = loginUser;
+module.exports = postAuth;
