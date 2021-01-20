@@ -33,7 +33,7 @@ async function registerUser(json) {
       const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
 
       console.log('SIGNING UP!!');
-      userPool.signUp(email, password, attributeList, function (err, result) {
+      userPool.signUp(email, password, attributeList, [], function (err, result) {
          console.log('SIGNUP RESULT!!!');
          console.log(result);
 
