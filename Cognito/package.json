@@ -1,7 +1,7 @@
 {
-   "name": "pickome-api",
+   "name": "cognito",
    "version": "1.0.0",
-   "description": "pickome API",
+   "description": "pickome cognito API",
    "scripts": {
       "test": "node index.js"
    },

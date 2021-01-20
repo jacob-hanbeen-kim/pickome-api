@@ -1,5 +1,9 @@
 name: deploy to lambda
-on: [push]
+
+on:
+   push:
+      branches:
+         - main
 jobs:
    deploy_source:
       name: build and deploy lambda
@@ -14,14 +18,11 @@ jobs:
            with:
               node-version: ${{ matrix.node-version }}
          - name: install dependencies
-           run: |
-              yarn install
-           env:
-              CI: true
+           run: yarn install
          - name: zip
            uses: montudor/action-zip@v0.1.0
            with:
-              args: zip -qq -r ./bundle.zip ./
+              args: zip -qq -r ./bundle.zip ./UserServices
          - name: default deploy
            uses: appleboy/lambda-action@master
            with:
