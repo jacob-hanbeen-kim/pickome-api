@@ -1,7 +1,7 @@
 const login = require('./cognito/Login');
 
 const loginUser = async (event, connection, callback) => {
-   let requestBody = event.data;
+   let requestBody = event.body;
    console.log('Login in following user', requestBody);
    try {
       let result = await loginUser(requestBody);
