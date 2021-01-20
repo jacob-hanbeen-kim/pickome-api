@@ -17,6 +17,8 @@ AWS.config.update({
 async function registerUser(json) {
    const { email, password } = json;
 
+   console.log(email, password);
+
    return new Promise((resolve, reject) => {
       let attributeList = [];
 
@@ -27,8 +29,10 @@ async function registerUser(json) {
          })
       );
 
+      console.log(poolData);
       const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
 
+      console.log('SIGNING UP!!');
       userPool.signUp(email, password, attributeList, function (err, result) {
          console.log('SIGNUP RESULT!!!');
          console.log(result);
