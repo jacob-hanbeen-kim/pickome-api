@@ -32,6 +32,5 @@ async function login(json) {
       });
    });
 }
-000;
 
 module.exports = login;
