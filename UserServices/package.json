@@ -4,10 +4,9 @@
    "description": "pickome UserServices API",
    "main": "main.js",
    "scripts": {
-      "test": "node ./test/test.js"
+      "test": "node ./main.js"
    },
    "dependencies": {
-      "mysql": "2.18.1",
       "aws-sdk": "2.828.0",
       "amazon-cognito-identity-js": "4.5.7"
    },

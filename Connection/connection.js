@@ -8,9 +8,9 @@ const connection = mysql.createConnection({
    database: config.database,
 });
 
-export const Connection = {
-   connect() {
-      connection.connect();
-      return connection;
-   },
+const connect = () => {
+   connection.connect();
+   return connection;
 };
+
+module.exports = connect;

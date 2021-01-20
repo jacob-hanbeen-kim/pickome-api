@@ -1,6 +1,6 @@
 const AWS = require('aws-sdk');
 const AmazonCognitoIdentity = require('amazon-cognito-identity-js');
-global.fetch = require('node-fetch');
+// global.fetch = require('node-fetch');
 
 const PoolId = 'us-east-2_2knlkAMhK';
 const ClientId = '6kfecu1nrkqqbm4nod6473vlqd';
@@ -45,7 +45,7 @@ async function registerUser(json) {
    });
 }
 
-export const postUser = (event, connection, callback) => {
+const postUser = async (event, connection, callback) => {
    let requestBody = event.data;
    console.log('Created following user', requestBody);
    let result = await registerUser(requestBody);
@@ -72,3 +72,5 @@ export const postUser = (event, connection, callback) => {
    //    else callback(null, responseBody);
    // });
 };
+
+module.exports = postUser;

@@ -1,5 +1,5 @@
-import { getUser, getAllUser, postUser } from '../functions/index';
-import { Connection } from '../../Connection/connection';
+// import { getUser, getAllUser, postUser } from '../functions/index';
+const connect = require('../../Connection/connection');
 
-const connection = Connection.connect();
+const connection = connect();
 connection.end();

@@ -1,4 +1,4 @@
-export const getUser = (event, connection, callback) => {
+const getUser = (event, connection, callback) => {
    const { userid } = event.pathParameters;
    const sql = `SELECT * FROM pickome.User
                  WHERE userId = ${userid}`;
@@ -21,3 +21,5 @@ export const getUser = (event, connection, callback) => {
       }
    });
 };
+
+module.exports = getUser;

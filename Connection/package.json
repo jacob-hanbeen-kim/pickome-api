@@ -1,0 +1,14 @@
+{
+   "name": "connection",
+   "version": "1.0.0",
+   "description": "pickome connecting to mysql",
+   "main": "connection.js",
+   "scripts": {
+      "test": "node ./connection.js"
+   },
+   "dependencies": {
+      "mysql": "2.18.1"
+   },
+   "author": "jacob kim",
+   "license": "ISC"
+}

@@ -1,4 +1,4 @@
-export const getAllUser = (connection, callback) => {
+const getAllUser = (connection, callback) => {
    const sql = `SELECT * FROM pickome.User`;
    connection.query(sql, function (error, results, fields) {
       console.log('Results: ', results);
@@ -19,3 +19,5 @@ export const getAllUser = (connection, callback) => {
       }
    });
 };
+
+module.exports = getAllUser;
