@@ -1,7 +1,7 @@
 const register = require('./cognito/Register');
 
 const postUser = async (event, connection, callback) => {
-   let requestBody = event.body;
+   let requestBody = JSON.parse(event.body);
    console.log('Created following user', requestBody);
    try {
       let result = await register(requestBody);
