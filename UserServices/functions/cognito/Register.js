@@ -53,4 +53,4 @@ async function register(json) {
    });
 }
 
-module.exports = { register };
+module.exports = register;
