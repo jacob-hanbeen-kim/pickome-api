@@ -27,7 +27,7 @@ async function login(json) {
             console.log('onSuccess:', data);
             resolve({
                statusCode: 200,
-               body: { accessToken: data.accessToken.jwtToken },
+               body: JSON.stringify({ accessToken: data.accessToken.jwtToken }),
             });
          },
 
