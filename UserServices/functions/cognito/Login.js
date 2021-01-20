@@ -4,6 +4,9 @@ const UserPool = require('./UserPool');
 async function login(json) {
    const { email, password } = json;
 
+   console.log(email, password);
+   console.log(UserPool);
+
    return new Promise((resolve, reject) => {
       const user = new AmazonCognitoIdentity.CognitoUser({
          Username: email,
