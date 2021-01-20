@@ -24,21 +24,27 @@ async function login(json) {
       console.log('INpromise');
       user.authenticateUser(authDetails, {
          onSuccess: (data) => {
-            console.log('IN');
             console.log('onSuccess:', data);
-            resolve(data);
+            resolve({
+               statusCode: 200,
+               body: data,
+            });
          },
 
          onFailure: (err) => {
-            console.log('IN of');
             console.error('onFailure:', err);
-            resolve(err);
+            resolve({
+               statusCode: 400,
+               body: err,
+            });
          },
 
          newPasswordRequired: (data) => {
-            console.log('IN pr');
             console.log('newPasswordRequired:', data);
-            resolve(data);
+            resolve({
+               statusCode: 203,
+               body: data,
+            });
          },
       });
    });
