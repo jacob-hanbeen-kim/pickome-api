@@ -113,13 +113,11 @@ async function login(json) {
          onSuccess: function (result) {
             var accessToken = result.getAccessToken().getJwtToken();
 
-            const property = `cognito-idp.${region}.amazonaws.com/${UserPoolId}>`;
-
             AWS.config.credentials = new AWS.CognitoIdentityCredentials({
                IdentityPoolId: IdentityPoolId, // your identity pool id here
                Logins: {
                   // Change the key below according to the specific region your user pool is in.
-                  property: result.getIdToken().getJwtToken(),
+                  'cognito-idp.us-east-2.amazonaws.com/us-east-2_2knlkAMhK>': result.getIdToken().getJwtToken(),
                },
             });
 
@@ -131,15 +129,15 @@ async function login(json) {
                      error,
                   });
                }
-               
+
                // Instantiate aws sdk service objects now that the credentials have been updated.
                // example: var s3 = new AWS.S3();
                console.log('Successfully logged!');
 
                resolve({
                   statusCode: 200,
-                  body: accessToken
-               });}
+                  body: accessToken,
+               });
             });
          },
 
