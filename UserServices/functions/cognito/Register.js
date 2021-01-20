@@ -32,8 +32,6 @@ async function register(json) {
          })
       );
 
-      console.log(poolData);
-
       console.log('SIGNING UP!!');
       UserPool.signUp(email, password, attributeList, null, function (err, result) {
          console.log(result);
