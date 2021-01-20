@@ -15,7 +15,7 @@ AWS.config.update({
 });
 
 async function registerUser(json) {
-   const { email, password } = json;
+   const { email, password, firstName, lastName } = json;
 
    console.log(email, password);
 
@@ -26,6 +26,13 @@ async function registerUser(json) {
          new AmazonCognitoIdentity.CognitoUserAttribute({
             Name: 'email',
             Value: email,
+         })
+      );
+
+      attributeList.push(
+         new AmazonCognitoIdentity.CognitoUserAttribute({
+            Name: 'name',
+            Value: `${firstName} ${lastName}`,
          })
       );
 
