@@ -12,10 +12,14 @@ async function login(json) {
          Username: email,
          Pool: UserPool,
       });
+
+      console.log(user);
       const authDetails = new AmazonCognitoIdentity.AuthenticationDetails({
          Username: email,
          Password: password,
       });
+
+      console.log(authDetails);
 
       user.authenticateUser(authDetails, {
          onSuccess: (data) => {
