@@ -18,8 +18,8 @@ jobs:
            with:
               node-version: ${{ matrix.node-version }}
          - name: install dependencies
-           run: yarn --cwd ./UserServices install
-           run: yarn --cwd ./Connection install
+           run: yarn --cwd ./UserServices install |
+              yarn --cwd ./Connection install
          - name: zip
            uses: montudor/action-zip@v0.1.0
            with:
