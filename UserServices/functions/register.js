@@ -2,11 +2,11 @@ const AWS = require('aws-sdk');
 const AmazonCognitoIdentity = require('amazon-cognito-identity-js');
 // global.fetch = require('node-fetch');
 
-const PoolId = 'us-east-2_2knlkAMhK';
+const UserPoolId = 'us-east-2_2knlkAMhK';
 const ClientId = '6kfecu1nrkqqbm4nod6473vlqd';
 
 const poolData = {
-   PoolId,
+   UserPoolId,
    ClientId,
 };
 
@@ -30,6 +30,9 @@ async function registerUser(json) {
       const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
 
       userPool.signUp(email, password, attributeList, function (err, result) {
+         console.log('SIGNUP RESULT!!!');
+         console.log(result);
+
          if (err) {
             return resolve({
                statusCode: 500,
