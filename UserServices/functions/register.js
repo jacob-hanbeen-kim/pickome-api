@@ -107,11 +107,16 @@ async function login(json) {
          Username: 'username',
          Pool: userPool,
       };
+
+      console.log(userData);
       var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
 
       cognitoUser.authenticateUser(authenticationDetails, {
          onSuccess: function (result) {
             var accessToken = result.getAccessToken().getJwtToken();
+
+            console.log('ACCESS TOKEN');
+            console.log(accessToken);
 
             AWS.config.credentials = new AWS.CognitoIdentityCredentials({
                IdentityPoolId: IdentityPoolId, // your identity pool id here
@@ -142,6 +147,8 @@ async function login(json) {
          },
 
          onFailure: function (err) {
+            console.log('FAILED');
+
             resolve({
                statusCode: 500,
                err,
