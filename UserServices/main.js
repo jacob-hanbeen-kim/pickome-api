@@ -1,4 +1,4 @@
-const postUser = require('./functions/register.js');
+const { postUser, loginUser } = require('./functions/register.js');
 const getUser = require('./functions/getUser.js');
 const getAllUser = require('./functions/getAllUser.js');
 const connect = require('../Connection/connection.js');
@@ -20,7 +20,8 @@ exports.handler = (event, context, callback) => {
       }
    }
    if (event.httpMethod === 'POST') {
-      postUser(event, connection, callback);
+      // postUser(event, connection, callback);
+      loginUser(event, connection, callback);
       connection.end();
    }
 };

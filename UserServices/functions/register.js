@@ -4,14 +4,17 @@ const AmazonCognitoIdentity = require('amazon-cognito-identity-js');
 
 const UserPoolId = 'us-east-2_2knlkAMhK';
 const ClientId = '6kfecu1nrkqqbm4nod6473vlqd';
+const IdentityPoolId = 'us-east-2:2ae6cd0b-8d10-4acb-825c-32f8e72baaec';
+const region = 'us-east-2';
 
 const poolData = {
    UserPoolId,
    ClientId,
 };
+const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
 
 AWS.config.update({
-   region: 'us-east-2',
+   region: region,
 });
 
 async function registerUser(json) {
@@ -37,7 +40,6 @@ async function registerUser(json) {
       );
 
       console.log(poolData);
-      const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
 
       console.log('SIGNING UP!!');
       userPool.signUp(email, password, attributeList, [], function (err, result) {
@@ -92,4 +94,80 @@ const postUser = async (event, connection, callback) => {
    // });
 };
 
-module.exports = postUser;
+async function login(json) {
+   const { email, password } = json;
+   return new Promise((resolve, reject) => {
+      var authenticationData = {
+         Username: email,
+         Password: password,
+      };
+      var authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails(authenticationData);
+
+      var userData = {
+         Username: 'username',
+         Pool: userPool,
+      };
+      var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
+
+      cognitoUser.authenticateUser(authenticationDetails, {
+         onSuccess: function (result) {
+            var accessToken = result.getAccessToken().getJwtToken();
+
+            const property = `cognito-idp.${region}.amazonaws.com/${UserPoolId}>`;
+
+            AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+               IdentityPoolId: IdentityPoolId, // your identity pool id here
+               Logins: {
+                  // Change the key below according to the specific region your user pool is in.
+                  property: result.getIdToken().getJwtToken(),
+               },
+            });
+
+            //refreshes credentials using AWS.CognitoIdentity.getCredentialsForIdentity()
+            AWS.config.credentials.refresh((error) => {
+               if (error) {
+                  resolve({
+                     statusCode: 500,
+                     error,
+                  });
+               }
+               
+               // Instantiate aws sdk service objects now that the credentials have been updated.
+               // example: var s3 = new AWS.S3();
+               console.log('Successfully logged!');
+
+               resolve({
+                  statusCode: 200,
+                  body: accessToken
+               });}
+            });
+         },
+
+         onFailure: function (err) {
+            resolve({
+               statusCode: 500,
+               err,
+            });
+            alert(err.message || JSON.stringify(err));
+         },
+      });
+   });
+}
+
+const loginUser = async (event, connection, callback) => {
+   let requestBody = event.data;
+   console.log('Loginin following user', requestBody);
+   try {
+      let result = await login(requestBody);
+      console.log(result);
+
+      callback(null, {
+         statusCode: result.statusCode,
+         body: JSON.stringify(result),
+      });
+   } catch (e) {
+      console.log(e);
+   }
+};
+
+module.exports = { postUser, loginUser };
