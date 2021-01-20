@@ -55,12 +55,17 @@ async function registerUser(json) {
 const postUser = async (event, connection, callback) => {
    let requestBody = event.data;
    console.log('Created following user', requestBody);
-   let result = await registerUser(requestBody);
+   try {
+      let result = await registerUser(requestBody);
+      console.log(result);
 
-   callback(null, {
-      statusCode: result.statusCode,
-      body: JSON.stringify(result),
-   });
+      callback(null, {
+         statusCode: result.statusCode,
+         body: JSON.stringify(result),
+      });
+   } catch (e) {
+      console.log(e);
+   }
 
    // const sql = `INSERT INTO pickome.User (firstName, lastName)
    //                 VALUE ('${requestBody.firstName}', '${requestBody.lastName}')`;
