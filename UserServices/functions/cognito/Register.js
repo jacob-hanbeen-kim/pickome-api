@@ -36,19 +36,18 @@ async function register(json) {
 
       console.log('SIGNING UP!!');
       UserPool.signUp(email, password, attributeList, null, function (err, result) {
-         console.log('SIGNUP RESULT!!!');
          console.log(result);
 
          if (err) {
             resolve({
-               statusCode: 500,
-               err,
+               statusCode: 400,
+               body: JSON.stringify(err),
             });
          }
 
          resolve({
             statusCode: 200,
-            message: 'User successfully registered!',
+            body: 'User successfully registered!',
          });
       });
    });

@@ -27,7 +27,7 @@ async function login(json) {
             console.log('onSuccess:', data);
             resolve({
                statusCode: 200,
-               body: JSON.stringify({ accessToken: data.accessToken.jwtToken }),
+               body: JSON.stringify(data),
             });
          },
 
@@ -35,7 +35,7 @@ async function login(json) {
             console.error('onFailure:', err);
             resolve({
                statusCode: 400,
-               body: err,
+               body: JSON.stringify(err),
             });
          },
 
@@ -43,7 +43,7 @@ async function login(json) {
             console.log('newPasswordRequired:', data);
             resolve({
                statusCode: 203,
-               body: data,
+               body: JSON.stringify(data),
             });
          },
       });
