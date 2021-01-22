@@ -1,5 +1,5 @@
 {
-   "region": "'us-east-2'",
+   "region": "us-east-2",
    "UserPoolId": "us-east-2_2JCUUZ5W0",
    "ClientId": "30c20m702ki8mjorlifehhs7on",
    "IdentityPoolId": "us-east-2:2ae6cd0b-8d10-4acb-825c-32f8e72baaec"

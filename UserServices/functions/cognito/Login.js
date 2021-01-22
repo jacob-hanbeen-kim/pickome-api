@@ -2,19 +2,20 @@ const AmazonCognitoIdentity = require('amazon-cognito-identity-js');
 const UserPool = require('./UserPool');
 
 async function login(json) {
-   const { email, password } = json;
+   const { username, password } = json;
 
-   console.log(email, password);
+   console.log(username, password);
+
    console.log(UserPool);
 
    const user = new AmazonCognitoIdentity.CognitoUser({
-      Username: email,
+      Username: username,
       Pool: UserPool,
    });
 
    console.log(user);
    const authDetails = new AmazonCognitoIdentity.AuthenticationDetails({
-      Username: email,
+      Username: username,
       Password: password,
    });
 
@@ -50,5 +51,4 @@ async function login(json) {
    });
 }
 
-// login({ email: 'kjkjkjhan424@gmail.com', password: 'Jacob3Kim!2' });
 module.exports = login;
