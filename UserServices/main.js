@@ -1,5 +1,6 @@
 const postUser = require('./functions/postUser');
 const postAuth = require('./functions/postAuth');
+const postConfirmRegistration = require('./functions/postConfirmRegistration');
 const getUser = require('./functions/getUser');
 const getAllUser = require('./functions/getAllUser');
 const connect = require('../Connection/connection');
@@ -25,6 +26,8 @@ exports.handler = (event, context, callback) => {
          postUser(event, connection, callback);
       } else if (event.path == '/auth') {
          postAuth(event, connection, callback);
+      } else if (event.path == '/confirmRegistration') {
+         postConfirmRegistration(event, connection, callback);
       }
       connection.end();
    }
