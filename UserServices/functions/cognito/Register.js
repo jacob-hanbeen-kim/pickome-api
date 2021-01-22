@@ -11,43 +11,57 @@ AWS.config.update({
 });
 
 async function register(json) {
-   const { email, password, firstName, lastName } = json;
+   const { username, password, email, phonenumber } = json;
 
-   console.log(email, password);
+   console.log(username, password, email, phonenumber);
 
    return new Promise((resolve, reject) => {
       let attributeList = [];
 
-      attributeList.push(
-         new AmazonCognitoIdentity.CognitoUserAttribute({
-            Name: 'email',
-            Value: email,
-         })
-      );
+      if (email) {
+         console.log(`added email ${email}`);
+         attributeList.push(
+            new AmazonCognitoIdentity.CognitoUserAttribute({
+               Name: 'email',
+               Value: email,
+            })
+         );
+      }
 
-      attributeList.push(
-         new AmazonCognitoIdentity.CognitoUserAttribute({
-            Name: 'name',
-            Value: `${firstName} ${lastName}`,
-         })
-      );
+      if (phonenumber) {
+         console.log(`added phonenumber ${phonenumber}`);
+         attributeList.push(
+            new AmazonCognitoIdentity.CognitoUserAttribute({
+               Name: 'phone_number',
+               Value: phonenumber,
+            })
+         );
+      }
 
-      console.log('SIGNING UP!!');
-      UserPool.signUp(email, password, attributeList, null, function (err, result) {
-         console.log(result);
-
-         if (err) {
-            resolve({
-               statusCode: 400,
-               body: JSON.stringify(err),
-            });
-         }
-
+      if (!email && !phonenumber) {
+         console.log('failed sign up');
          resolve({
-            statusCode: 200,
-            body: 'User successfully registered!',
+            statusCode: 400,
+            body: JSON.stringify({ message: 'Email or Phone Number required!' }),
          });
-      });
+      } else {
+         console.log('SIGNING UP!!');
+         UserPool.signUp(username, password, attributeList, null, function (err, result) {
+            console.log(result);
+
+            if (err) {
+               resolve({
+                  statusCode: 400,
+                  body: JSON.stringify(err),
+               });
+            }
+
+            resolve({
+               statusCode: 200,
+               body: 'User successfully registered!',
+            });
+         });
+      }
    });
 }
 
